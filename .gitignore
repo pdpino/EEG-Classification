@@ -1,8 +1,11 @@
 # Python generated
 __pycache__
+*.pyc
 .ipynb_checkpoints
 pyenv/
+pyenv2/
 
 
 # Ignore dataset?
 # data/
+*.avi

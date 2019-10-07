@@ -62,7 +62,7 @@ def make_steps(samples,frame_duration,overlap):
         i = i + samples_per_frame - int(samples_per_frame*overlap)
     return intervals
 
-def make_frames(df,frame_duration):
+def make_frames(df,frame_duration, overlap=0):
     '''
     in: dataframe or array with all channels, frame duration in seconds
     out: array of theta, alpha, beta averages for each probe for each time step
@@ -101,7 +101,7 @@ locs_2d = [(-2.0,4.0),
            (-1.0,-3.0),
            (1.0,-3.0)]
 
-def make_data_pipeline(file_names,labels,image_size,frame_duration,overlap):
+def make_data_pipeline(file_names,labels,image_size,frame_duration,overlap, normalize=True):
     '''
     IN:
     file_names - list of strings for each input file (one for each subject)
@@ -125,7 +125,7 @@ def make_data_pipeline(file_names,labels,image_size,frame_duration,overlap):
 
 
     for i, file in enumerate(file_names):
-        print ('Processing session: ',file, '. (',i+1,' of ',len(file_names),')')
+        # print ('Processing session: ',file, '. (',i+1,' of ',len(file_names),')')
         data = genfromtxt(file, delimiter=',').T
         df = pd.DataFrame(data)
 
@@ -133,10 +133,10 @@ def make_data_pipeline(file_names,labels,image_size,frame_duration,overlap):
         #steps = np.arange(0,len(df),frame_length)
         X_1 = X_0.reshape(len(X_0),14*3)
 
-        images = eeglib.gen_images(np.array(locs_2d),X_1, image_size, normalize=False)
+        images = eeglib.gen_images(np.array(locs_2d),X_1, image_size, normalize=normalize)
         images = np.swapaxes(images, 1, 3)
-        print(len(images), ' frames generated with label ', labels[i], '.')
-        print('\n')
+#         print(len(images), ' frames generated with label ', labels[i], '.')
+#         print('\n')
         if i == 0:
             X = images
             y = np.ones(len(images))*labels[0]
