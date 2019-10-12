@@ -9,3 +9,5 @@ pyenv2/
 # Ignore dataset?
 # data/
 *.avi
+
+.vscode
