@@ -10,4 +10,5 @@ pyenv2/
 # data/
 *.avi
 
+cam_data.json
 .vscode
