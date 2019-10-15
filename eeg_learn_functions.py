@@ -94,7 +94,7 @@ def gen_images(locs, features, n_gridpoints, normalize=True,
         for c in range(n_colors):
             temp_interp[c][i, :, :] = griddata(locs, feat_array_temp[c][i, :], (grid_x, grid_y),
                                     method='cubic', fill_value=np.nan)
-        print('Interpolating {0}/{1}\r'.format(i+1, nSamples), end='\r')
+        #print('Interpolating {0}/{1}\r'.format(i+1, nSamples), end='\r')
     # Normalizing
     for c in range(n_colors):
         if normalize:

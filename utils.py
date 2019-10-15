@@ -125,7 +125,7 @@ def make_data_pipeline(file_names,labels,image_size,frame_duration,overlap, norm
 
 
     for i, file in enumerate(file_names):
-        # print ('Processing session: ',file, '. (',i+1,' of ',len(file_names),')')
+        print ('Processing session: ',file, '. (',i+1,' of ',len(file_names),')')
         data = genfromtxt(file, delimiter=',').T
         df = pd.DataFrame(data)
 

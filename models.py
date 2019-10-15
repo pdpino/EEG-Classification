@@ -55,5 +55,20 @@ def get_model_2(input_shape, num_classes):
     #model.add(Dropout(0.5)) # Pipeline 4, 5: not commented
     model.add(Dense(num_classes))
     model.add(Activation('softmax'))
+    return model
 
+
+def get_func_model_2(input_shape, num_classes):
+    input_layer = Input(input_shape)
+    conv1 = Conv2D(32, (3, 3), padding='same', activation='relu')(input_layer)
+    conv2 = Conv2D(32, (3, 3), padding='same', activation='relu')(conv1)
+    max1 = MaxPooling2D(pool_size=(2, 2), padding='same')(conv2)
+    conv3 = Conv2D(32, (3, 3), padding='same', activation='relu')(max1)
+    max2 = MaxPooling2D(pool_size=(2, 2), padding='same')(conv3)
+    conv4 = Conv2D(32, (3, 3), padding='same', activation='relu')(max2)
+    max3 = MaxPooling2D(pool_size=(2, 2))(conv4)
+    flat = Flatten()(max3)
+    dense1 = Dense(10, activation='relu')(flat)
+    dense2 = Dense(num_classes, activation='softmax')(dense1)
+    model = Model(inputs=input_layer, outputs=dense2)
     return model
